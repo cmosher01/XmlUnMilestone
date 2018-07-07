@@ -1,6 +1,5 @@
 package nu.mine.mosher.xml;
 
-import com.sun.xml.internal.ws.util.xml.ContentHandlerToXMLStreamWriter;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
@@ -12,7 +11,7 @@ import java.io.Writer;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class MilestoneContentHandler extends ContentHandlerToXMLStreamWriter implements ContentHandler {
+public class MilestoneContentHandler extends ContentHandlerToXmlStreamWriter implements ContentHandler {
     private final Deque<TagName> hierElements = new LinkedList<>();
     private final TagName milestone;
 
@@ -28,13 +27,13 @@ public class MilestoneContentHandler extends ContentHandlerToXMLStreamWriter imp
             if (tagName.equals(this.milestone)) {
                 this.hierElements.push(tagName);
             }
-            super.startElement(namespace, tag, legacyTag, attributes);
+            super.startElement(tagName, attributes);
         } else {
             if (tagName.equals(this.milestone)) {
                 breakMilestone(tagName, attributes);
             } else {
                 this.hierElements.push(tagName);
-                super.startElement(namespace, tag, legacyTag, attributes);
+                super.startElement(tagName, attributes);
             }
         }
     }
@@ -44,18 +43,18 @@ public class MilestoneContentHandler extends ContentHandlerToXMLStreamWriter imp
 
         TagName x = this.hierElements.pop();
         while (!x.equals(this.milestone)) {
-            super.endElement(x.namespace(), x.tag(), x.legacyTag());
             temp.push(x);
+            super.endElement(x);
             x = this.hierElements.pop();
         }
-        super.endElement(tagName.namespace(), tagName.tag(), tagName.legacyTag());
+        super.endElement(tagName);
 
         this.hierElements.push(tagName);
-        super.startElement(tagName.namespace(), tagName.tag(), tagName.legacyTag(), attributes);
+        super.startElement(tagName, attributes);
         while (!temp.isEmpty()) {
             final TagName y = temp.pop();
-            super.startElement(y.namespace(), y.tag(), y.legacyTag(), new AttributesImpl());
             this.hierElements.push(y);
+            super.startElement(y, new AttributesImpl());
         }
     }
 
@@ -69,6 +68,6 @@ public class MilestoneContentHandler extends ContentHandlerToXMLStreamWriter imp
         if (!this.hierElements.isEmpty()) {
             this.hierElements.pop();
         }
-        super.endElement(namespace, tag, legacyTag);
+        super.endElement(tagName);
     }
 }

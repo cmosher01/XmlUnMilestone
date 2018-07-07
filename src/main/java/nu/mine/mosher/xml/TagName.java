@@ -7,8 +7,19 @@ public class TagName {
 
     public TagName(final String namespace, final String tag, final String legacyTag) {
         this.namespace = namespace;
-        this.tag = tag;
+        this.tag = extractTag(tag, legacyTag);
         this.legacyTag = legacyTag;
+    }
+
+    private static String extractTag(final String tag, final String legacyTag) {
+        if (!tag.isEmpty()) {
+            return tag;
+        }
+        final int p = legacyTag.indexOf(':');
+        if (p >= 0) {
+            return legacyTag.substring(p+1);
+        }
+        return legacyTag;
     }
 
     public String namespace() {
