@@ -47,6 +47,7 @@ public class XmlUnMilestone {
         final StringWriter xmlOut = new StringWriter();
 
         final SAXParserFactory saxParserFactory = SAXParserFactory.newDefaultInstance();
+        saxParserFactory.setNamespaceAware(true);
         final SAXParser saxParser = saxParserFactory.newSAXParser();
 
         final XMLReader xr = saxParser.getXMLReader();

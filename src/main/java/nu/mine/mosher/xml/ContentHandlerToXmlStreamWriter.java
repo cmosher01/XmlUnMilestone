@@ -126,8 +126,8 @@ public class ContentHandlerToXmlStreamWriter extends DefaultHandler {
             return;
         }
 
-        prefixBindings.add(prefix);
-        prefixBindings.add(uri);
+        prefixBindings.push(prefix);
+        prefixBindings.push(uri);
     }
 
     public void endElement(final TagName tagName) throws SAXException {
