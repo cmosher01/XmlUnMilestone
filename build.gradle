@@ -1,0 +1,22 @@
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://mosher.mine.nu/nexus/repository/maven-public/'
+    }
+}
+
+apply plugin: 'java'
+
+group = 'nu.mine.mosher.xml'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_9
+
+compileJava {
+    inputs.property('moduleName', 'nu.mine.mosher.xml')
+    doFirst {
+        options.compilerArgs = [
+            '--module-path', classpath.asPath,
+        ]
+        classpath = files()
+    }
+}
