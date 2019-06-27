@@ -1,15 +1,14 @@
+plugins {
+    id 'maven-publish'
+}
+
 repositories {
     mavenCentral()
-    maven {
-        url 'https://mosher.mine.nu/nexus/repository/maven-public/'
-    }
+    jcenter()
 }
 
 apply plugin: 'java'
 
-group = 'nu.mine.mosher.xml'
-version = '1.0.0-SNAPSHOT'
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_9
 
 compileJava {
     inputs.property('moduleName', 'nu.mine.mosher.xml')
@@ -20,3 +19,21 @@ compileJava {
         classpath = files()
     }
 }
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+        }
+    }
+}
+
+group = 'nu.mine.mosher.xml'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_9
+version = '1.0.0'
