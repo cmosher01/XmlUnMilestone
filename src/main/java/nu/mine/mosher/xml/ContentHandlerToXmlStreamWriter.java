@@ -25,12 +25,11 @@ package nu.mine.mosher.xml;
  * questions.
  */
 
-import java.util.Deque;
-import java.util.LinkedList;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.stream.*;
+import java.util.*;
 
 /**
  * This is a simple utility class that adapts SAX events into StAX

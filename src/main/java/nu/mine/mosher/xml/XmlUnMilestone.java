@@ -1,21 +1,12 @@
 package nu.mine.mosher.xml;
 
-import javax.xml.parsers.*;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
+import org.xml.sax.*;
 
-import javax.xml.stream.XMLOutputFactory;
+import javax.xml.parsers.*;
 import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 public class XmlUnMilestone {
     public static void main(final String... args) throws SAXException, IOException, XMLStreamException, ParserConfigurationException {
@@ -46,7 +37,7 @@ public class XmlUnMilestone {
     public static String unMilestone(final String xmlIn, final TagName milestone) throws SAXException, XMLStreamException, IOException, ParserConfigurationException {
         final StringWriter xmlOut = new StringWriter();
 
-        final SAXParserFactory saxParserFactory = SAXParserFactory.newDefaultInstance();
+        final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         saxParserFactory.setNamespaceAware(true);
         final SAXParser saxParser = saxParserFactory.newSAXParser();
 

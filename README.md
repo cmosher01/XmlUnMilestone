@@ -29,4 +29,4 @@ becomes
 
 where `ms` is the milestone tag.
 
-Milestone elements are presumed empty.
+Existing milestone elements are presumed empty.

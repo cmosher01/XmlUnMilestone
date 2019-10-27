@@ -1,15 +1,11 @@
 package nu.mine.mosher.xml;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.SAXException;
+import org.xml.sax.*;
 import org.xml.sax.helpers.AttributesImpl;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.*;
 import java.io.Writer;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 public class MilestoneContentHandler extends ContentHandlerToXmlStreamWriter implements ContentHandler {
     private final Deque<TagName> hierElements = new LinkedList<>();

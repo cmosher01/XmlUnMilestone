@@ -1,39 +1,11 @@
-plugins {
-    id 'maven-publish'
+def inc(module) {
+    apply from: "${rootProject.projectDir}/gradle/${module}.gradle"
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
-apply plugin: 'java'
-
-
-compileJava {
-    inputs.property('moduleName', 'nu.mine.mosher.xml')
-    doFirst {
-        options.compilerArgs = [
-            '--module-path', classpath.asPath,
-        ]
-        classpath = files()
-    }
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier = 'sources'
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-        }
-    }
-}
-
-group = 'nu.mine.mosher.xml'
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_9
-version = '1.0.0'
+inc('version')
+inc('project')
+inc('dependencies')
+inc('test')
+inc('srcjar')
+inc('maven')
+inc('bintray')
